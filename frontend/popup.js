@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   let allergicFoodList = [];
 
+  const addFoodInputBar = document.getElementById('foodText');
   const addButton = document.getElementById('addButton');
-  // const automateButton = document.getElementById('automate_button');
-  // const clearButton = document.getElementById('clear_button');
-  // let lastState = recordButton.innerText;
-  chrome.storage.sync.get('state', (s) => {
+
+  chrome.storage.sync.get('allergicFoodList', (s) => {
     if (s.allergicFoodList) {
       allergicFoodList = s.allergicFoodList;
-      recordButton.innerText = lastState;
     }
   });
 
@@ -53,4 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //   console.log(message);
   // });
+  addButton.addEventListener('click', (e) => {
+    allergicFoodList.push(addFoodInputBar.value);
+    chrome.storage.sync.set({ allergicFoodList: allergicFoodList }, () => {
+      console.log(allergicFoodList);
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          allergicFoodList: allergicFoodList,
+        });
+      });
+    });
+  });
 });
