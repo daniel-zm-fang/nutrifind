@@ -13,14 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   toggleButton.addEventListener('click', (e) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        msg: 'scan button clicked',
-      });
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        {
+          msg: 'scan button clicked',
+        },
+        (res) => {
+          console.log(res);
+        }
+      );
     });
   });
 
   addButton.addEventListener('click', (e) => {
     allergicFoodList.push(addFoodInputBar.value);
-    chrome.storage.sync.set({ allergicFoodList });
+    chrome.storage.sync.get(null, (items) => {
+      chrome.storage.sync.set({ ...items, allergicFoodList });
+    });
   });
 });

@@ -1,7 +1,18 @@
 let allergicFoodList = [];
 
 const scanAllergicFood = () => {
-  const uls = Array.prototype.slice.call(document.getElementsByTagName('ul'));
+  const messy = Array.prototype.slice.call(document.getElementsByTagName('ul'));
+  console.log(messy[0].children);
+  const clean = messy.map((ul) => ({
+    Array.prototype.slice.call(ul.children).map((li) => li.innerText)
+  })
+  );
+  console.log(clean);
+
+  return uls;
+  chrome.storage.sync.get(null, (items) => {
+    chrome.storage.sync.set({ ...items, uls });
+  });
 };
 
 chrome.storage.onChanged.addListener((changes) => {
@@ -14,6 +25,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       scanAllergicFood();
     }
   }
+  sendResponse('hello');
 });
 
 function updateMask(target) {
