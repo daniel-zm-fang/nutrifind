@@ -12,8 +12,8 @@ body {
 }
 
 #logo{
-    width: 60px;
-    height: 80px;
+    width: 30px;
+    height: 40px;
 }
 
 #titleText {
@@ -22,18 +22,23 @@ body {
     font-family: 'Gluten', cursive;
 }
 
-#settingIcon {
+#settingsButton {
     position: absolute;
     right: 20px;
     top: 15px;
     width: 20px;
     height: 20px;
+    transition: transform .7s ease-in-out;
+    cursor: pointer;
+}
+
+#settingsButton:hover {
+    transform: rotate(360deg);
 }
 
 #menuBar {
     display: flex;
     justify-content: center;
-
 }
 
 .myButton {
