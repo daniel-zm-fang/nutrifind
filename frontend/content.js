@@ -1,18 +1,15 @@
 let allergicFoodList = [];
 
 const scanAllergicFood = () => {
-  const messy = Array.prototype.slice.call(document.getElementsByTagName('ul'));
-  console.log(messy[0].children);
-  const clean = messy.map((ul) => ({
-    Array.prototype.slice.call(ul.children).map((li) => li.innerText)
-  })
-  );
-  console.log(clean);
-
+  const uls = Array.prototype.slice.call(document.getElementsByTagName('ul'));
+  // console.log(messy[0].children);
+  for (let i = 0; i < uls.length; i++) {
+    uls[i] = uls[i].innerText;
+  }
   return uls;
-  chrome.storage.sync.get(null, (items) => {
-    chrome.storage.sync.set({ ...items, uls });
-  });
+  // chrome.storage.sync.get(null, (items) => {
+  //   chrome.storage.sync.set({ ...items, uls });
+  // });
 };
 
 chrome.storage.onChanged.addListener((changes) => {
