@@ -1,0 +1,29 @@
+{
+  "name": "nutrifind-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AeGGIndie/nutrifind-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AeGGIndie/nutrifind-backend/issues"
+  },
+  "homepage": "https://github.com/AeGGIndie/nutrifind-backend#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
