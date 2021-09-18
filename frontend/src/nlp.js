@@ -1,4 +1,4 @@
-nlp.extend(compromiseNumbers);
+const nlp = require('compromise');
 
 function listIsIngredient(listStr) {
   let doc = nlp(listStr);
