@@ -2,15 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gluten&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="popup.js"></script>
-    <title>Menu</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <title>Nutrifind</title>
 </head>
 <body>
-    <h1>Nutrifind</h1>
-    <label for="foodName">Enter your allergic food</label>
-    <input type="text" id="foodText">
-    <button id="addButton">add to list</button>
-    <button id="toggleScanButton">Scan</button>
-
+    <h1 id="titleText">Nutri<span style="color:darkcyan">Find</span></h1>
+    <div id="menuBar">
+        <button type="button" id="dashboardButton" class="btn btn-outline-success menuButton">Dashboard</button>
+        <button type="button" id="allergyButton" class="btn btn-outline-success menuButton">Allergy Filter</button>
+        <button type="button" id="caloriesButton" class="btn btn-outline-success menuButton">Calories Checker</button>
+    </div>
+    <div id="dashboard" class="tab">
+        <ul id="foodList" class="list-group"></ul>
+        <label>Enter your allergic food:</label>
+        <input type="text" class="form-control" id="foodText" placeholder="Example: peanuts, milk, soy, ..." autofocus />
+        <button type="button" id="addButton" class="btn">add to list</button>
+        <button type="button" id="scanButton" class="btn">Scan</button>
+        <button type="button" id="clearButton" class="btn">Clear</button>
+    </div>
+    <div id="allergy" class="tab" style="display: none">
+        <p>This is the allergy tab</p>
+    </div>
+    <div id="calories" class="tab" style="display: none">
+        <p>This is the calories tab</p>
+    </div>
 </body>
 </html>

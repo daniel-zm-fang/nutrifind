@@ -1,0 +1,40 @@
+body {
+    min-width: 300px;
+    min-height: 480px;
+    margin: 10px 15px;
+    background: linear-gradient(90deg, rgba(245,245,220,1) 0%, rgba(250,250,240,1) 100%);
+}
+
+#titleText {
+    font-size: 30px;
+    font-family: 'Gluten', cursive;
+}
+
+#menuBar {
+    display: flex;
+    justify-content: center;
+}
+
+#foodList {
+    margin: 10px 0px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#foodText {
+    margin-bottom: 15px;
+}
+
+.tab {
+    margin-top: 10px;
+}
+
+.menuButton {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 2px 5px;
+}
+
+.list-group-item {
+    padding: 4px 10px;
+}
