@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
       recordButton.innerText = lastState;
     }
   });
+
+  const scan = document.getElementById('scanForIngredients');
+  scan.addEventListener('click', (e) => {
+    const list = document.getElementsByTagName('li');
+    console.log(list);
+  });
+
   // recordButton.addEventListener('click', (e) => {
   //   if (recordButton.innerText == 'Start Recording') {
   //     recordButton.innerText = 'Stop Recording';
