@@ -16,5 +16,6 @@
         "default_popup": "popup.html",
         "default_title": "Popup"
     },
-    "permissions": ["storage", "tabs"]
+    "permissions": ["storage", "tabs"],
+    "content_security_policy": "script-src 'self' https://unpkg.com/compromise https://unpkg.com/compromise-numbers; object-src 'self';"
 }
