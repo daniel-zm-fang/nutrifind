@@ -8,8 +8,21 @@ const scanAllergicFood = () => {
   });
 };
 
-const annoteAllergicFood = () => {
-  
+const annoteAllergicFood = (element) => {
+  if (!element.hasChildNodes()) {
+    return
+  } else {
+    for (let i = 0; i < allergicFoodList.length; i++) {
+      if (element.innerText.includes(allergicFoodList)) {
+        updateMask(elemnt);
+        break;
+      }
+    }
+    let c = element.children;
+    for (let i = 0; i < c.length; i++) {
+      annoteAllergicFood(c[i]);
+    }
+  }
 }
 
 chrome.storage.onChanged.addListener((changes) => {

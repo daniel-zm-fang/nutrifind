@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryFoodName = document.createElement('td');
     const summaryFoodCalories = document.createElement('td');
     const summaryFoodPrice = document.createElement('td');
-    foodId.innerText = 'summary';
-    foodName.innerText = '';
-    foodCalories.innerText = totalCalories;
-    foodPrice.innerText = totalPrice;
+    summaryFoodId.innerText = 'summary';
+    summaryFoodName.innerText = '';
+    summaryFoodCalories.innerText = totalCalories;
+    summaryFoodPrice.innerText = totalPrice;
     summaryRow.appendChild(summaryFoodId);
     summaryRow.appendChild(summaryFoodName);
     summaryRow.appendChild(summaryFoodCalories);
@@ -57,6 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const onOffButton = document.getElementById('onOffButton');
   const foodSummaryTable = document.getElementById('foodSummaryTable');
   const menuBar = document.getElementById('menuBar');
+  const checkMark = document.getElementById('checkmark');
+  const bigX = document.getElementById('bigx');
+  checkmark.style.visibility = 'hidden';
+  bigX.style.visibility = 'hidden';
 
   chrome.storage.sync.get(null, (items) => {
     if (items.on) {
@@ -138,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   scanButton.addEventListener('click', (e) => {
     console.log('clearing foodSummaryList')
+    checkmark.style.visibility = 'hidden';
+    bigX.style.visibility = 'hidden';
     chrome.storage.sync.get(null, (items) => {
       items.foodSummaryList = [];
       chrome.storage.sync.set(items);
@@ -149,6 +155,19 @@ document.addEventListener('DOMContentLoaded', () => {
           msg: 'scan button clicked',
         },
         (resTo) => {
+          // check if flatted resTo contains any allergies
+          const flat = resTo.flat().map((text) => text.split(' ')).flat();
+          console.log(flat);
+          console.log(allergicFoodList);
+          if (flat.some((word) => allergicFoodList.includes(word))) {
+            console.log('allergies on the page');
+            checkmark.style.visibility = 'hidden';
+            bigX.style.visibility = 'visible';
+          } else {
+            console.log('allergies not on the page');
+            checkmark.style.visibility = 'visible';
+            bigX.style.visibility = 'hidden'
+          }
           console.log('resto', resTo);
           axios.post('http://localhost:3000/api/nlp', resTo
           ).then((resFrom) => {
