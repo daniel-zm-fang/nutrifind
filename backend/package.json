@@ -26,6 +26,7 @@
     "puppeteer": "^10.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "perf_hooks": "0.0.1"
   }
 }
