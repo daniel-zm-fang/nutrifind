@@ -20,7 +20,10 @@
   "homepage": "https://github.com/AeGGIndie/nutrifind-backend#readme",
   "dependencies": {
     "axios": "^0.21.4",
+    "compromise": "^13.11.3",
+    "compromise-numbers": "^1.4.0",
     "convert-units": "^2.3.4",
+    "csv": "^5.5.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
