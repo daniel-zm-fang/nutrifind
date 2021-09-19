@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const settings = document.getElementById('settings');
   const onOffButton = document.getElementById('onOffButton');
   const foodSummaryTable = document.getElementById('foodSummaryTable');
+  const menuBar = document.getElementById('menuBar');
 
   chrome.storage.sync.get(null, (items) => {
     if (items.on) {
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       allergy.style.visibility = 'visible';
       calories.style.visibility = 'visible';
       settings.style.visibility = 'visible';
+      menuBar.style.visibility = 'visible';
       document.body.style.minHeight = '480px';
     } else {
       on = true;
@@ -126,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       calories.style.visibility = 'hidden';
       settings.style.display = 'none';
       settings.style.visibility = 'hidden';
+      menuBar.style.visibility = 'hidden';
       document.body.style.minHeight = '200px';
     }
     chrome.storage.sync.get(null, (items) => {
