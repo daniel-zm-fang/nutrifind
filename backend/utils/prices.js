@@ -1,7 +1,43 @@
 const puppeteer = require('puppeteer');
+// const { performance } = require('perf_hooks'); // uncomment when testing times
 
 // Options for puppeteer
 const args = [
+    '--autoplay-policy=user-gesture-required',
+    '--disable-background-networking',
+    '--disable-background-timer-throttling',
+    '--disable-backgrounding-occluded-windows',
+    '--disable-breakpad',
+    '--disable-client-side-phishing-detection',
+    '--disable-component-update',
+    '--disable-default-apps',
+    '--disable-dev-shm-usage',
+    '--disable-domain-reliability',
+    '--disable-extensions',
+    '--disable-features=AudioServiceOutOfProcess',
+    '--disable-hang-monitor',
+    '--disable-ipc-flooding-protection',
+    '--disable-notifications',
+    '--disable-offer-store-unmasked-wallet-cards',
+    '--disable-popup-blocking',
+    '--disable-print-preview',
+    '--disable-prompt-on-repost',
+    '--disable-renderer-backgrounding',
+    '--disable-setuid-sandbox',
+    '--disable-speech-api',
+    '--disable-sync',
+    '--hide-scrollbars',
+    '--ignore-gpu-blacklist',
+    '--metrics-recording-only',
+    '--mute-audio',
+    '--no-default-browser-check',
+    '--no-first-run',
+    '--no-pings',
+    '--no-sandbox',
+    '--no-zygote',
+    '--password-store=basic',
+    '--use-gl=swiftshader',
+    '--use-mock-keychain',
     '--no-sandbox',
     '--disable-setuid-sandbox',
     '--disable-infobars',
@@ -21,11 +57,27 @@ const scrapeProduct = (async (ingredient) => {
     // Start puppeteer
     const browser = await puppeteer.launch({
         headless: true,
-        args
+        userDataDir: './cache',
+        args,
     });
 
     // Set user-agent based on system
     const page = await browser.newPage();
+
+    
+    // Enable request interceptor
+    await page.setRequestInterception(true);
+
+    // Block requests related to images and styles
+    page.on('request', request => {
+        if (
+            request.resourceType() === 'image' || 
+            request.resourceType() === 'stylesheet'
+        )
+            request.abort();
+        else
+            request.continue();
+    });
 
     // Queries to sort walmart products by
     const popularQuery = '&sort=Popular%3ADESC';
@@ -50,7 +102,6 @@ const scrapeProduct = (async (ingredient) => {
     for (const item of items){
         // Parse the product to get the price(s) parts
         const itemInfo = item.split('\n');
-        console.log(itemInfo);
         const priceParsed = itemInfo.filter(item => {
            return (item.includes('¢') || item.includes('$'));
         });
@@ -71,7 +122,7 @@ const scrapeProduct = (async (ingredient) => {
     // Check if the page got blocked
     if (page.url().includes('blocked')){
         // Restart the browser
-        await browser.close();
+        await browser.disconnect();
         await scrapeProduct(ingredient);
     }
 
@@ -87,7 +138,10 @@ const scrapeProduct = (async (ingredient) => {
 });
 
 // (async () => {
-//     const p = await scrapeProduct('tomato');
+//     const before = performance.now();
+//     const p = await scrapeProduct('chocolate');
+//     const after = performance.now();
+//     console.log(`Call took ${after - before} miliseconds`);
 //     console.log(p);
 //     process.exit(1);
 // })();
