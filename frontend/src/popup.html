@@ -31,20 +31,17 @@
         <button type="button" id="allergyButton" class="myButton">Allergy Filter</button>
         <button type="button" id="caloriesButton" class="myButton">Calories Checker</button>
     </div>
-    <div id="dashboard" class="tab">
-        <div class="float-right">
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round" id="onOffButton"></span>
-            </label>
-        </div>
-        <p id="onofftext">Turn on button</p>
+    <div class="float-right">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round" id="onOffButton"></span>
+        </label>
     </div>
-    <div>
-        <p id="dashboardtext">This is the dashboard, implement how many allergies the extension has caught, user's favorite icons</p>
+    <p id="onofftext">Turn on button</p>
+    <div id="dashboard" class="tab">
     </div>
     <div id="allergy" class="tab" style="display: none">
-        <ul id="foodList" class="list-group"></ul>
+        <ul id="allergicFoodul" class="list-group"></ul>
         <label>Enter your food allergy:</label>
         <input type="text" class="form-control" id="foodText" placeholder="Example: peanuts, milk, soy, ..." autofocus />
         <button type="button" id="addButton" class="btn">Add to my list</button>
@@ -52,7 +49,16 @@
         <button type="button" id="clearButton" class="btn">Clear</button>
     </div>
     <div id="calories" class="tab" style="display: none">
-        <p>This is the calories tab</p>
+        <table class="table" id="foodSummaryTable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Food</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+        </table>
     </div>
     <div id="settings" class="tab" style="display: none">
         <p>This is the settings page</p>
