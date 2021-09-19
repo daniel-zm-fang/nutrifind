@@ -20,51 +20,42 @@ function toFood(nouns) {
 
 function isIngredient(li) {
   const liData = {};
-  // check if item contains numbers
-  const words = li.split(' ');
-  const nouns = [];
-  const nums = [];
-
-  for (const word of words) {
-    const doc = nlp(word);
-    let temp = doc.numbers().json();
-    if (temp && temp.length) {
-      nums.push(temp[0].number)
-    }
-    temp = doc.nouns().out('array');
-    if (temp && temp.length) {
-      nouns.push(temp[0])
-    }
-  }
   
+  const words = li.split(' ');
+  const nums = nlp(li).numbers().json();
+  
+  // check if item contains numbers
   if (nums.length == 0) {
     console.log(li, 'has no nums:', nums);
     return null;
   } else {
-    liData.quantity = nums[0];
+    liData.quantity = nums[0].number;
   }
+
+  // check if theres a quantity
+  let found = false;
+  for (const word of words) {
+    ({ quantity, quantityType } = quantityHelper(liData.quantity, word));
+    if (quantity && quantityType) {
+      liData.quantity = quantity;
+      liData.quantityType = quantityType;
+      found = true;
+      li = li.replace(word, '');
+      break;
+    }
+  }
+  if (!found) {
+    console.log(li, 'has no quantity');
+    return null;
+  }
+
+  const nouns = nlp(li).nouns().out('array');
   // check if its nouns are ingredients
   const foodNouns = toFood(nouns);
   if (foodNouns && foodNouns.length) {
     liData.ingredient = foodNouns.join(' ');
   } else {
     console.log(li, 'has no ingredient nouns:', nouns);
-    return null;
-  }
-  // check if theres a quantity
-  let found = false;
-  for (const noun of nouns) {
-    ({ quantity, quantityType } = quantityHelper(liData.quantity, noun));
-    console.log(quantity, quantityType);
-    if (quantity && quantityType) {
-      liData.quantity = quantity;
-      liData.quantityType = quantityType;
-      found = true;
-      break;
-    }
-  }
-  if (!found) {
-    console.log(li, 'has no quantity');
     return null;
   }
 
@@ -80,7 +71,7 @@ function findIngredients(uls) {
         ingredientsList.push(liData);
       }
     }
-    if (ingredientsList.length === ul.length) {
+    if (ingredientsList && ingredientsList.length) {
       return ingredientsList;
     }
   }
@@ -95,7 +86,7 @@ nlpRouter.get('/isFood', async (request, response) => {
 nlpRouter.post('/', async (request, response) => {
   const uls = request.body; // array of string
   const ingredientsList = findIngredients(uls);
-  console.log('found incredients');
+  console.log('found ingredients');
   if (ingredientsList && ingredientsList.length) {
     for (let i = 0; i < ingredientsList.length; i += 1) {
       ingredientsList[i].price = await price(ingredientsList[i].ingredient);
@@ -110,6 +101,5 @@ nlpRouter.post('/', async (request, response) => {
 //       calories, price, stuff like that
 
 // testing
-console.log(isIngredient('three cups of cinnamon and gasoline'));
 
 module.exports = nlpRouter;

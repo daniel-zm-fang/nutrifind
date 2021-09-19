@@ -1,16 +1,8 @@
 var axios = require('axios').default;
-var convert  = require('convert-units')
 var quantityHelper = require('./quantity');
 
 async function calories({ ingredient, quantity, quantityType }) {
-  ({ quantity, quantityType } = quantityHelper(quantity, quantityType));
-
-  var unit_possibilities = convert(1).from(quantityType).possibilities();
-  if(unit_possibilities.includes('g')){
-    convert(1).from(quantityType).to('g');
-  }
-  quantity /= 100;
-
+  const data = quantityHelper(quantity, quantityType);
   var options = {
     method: 'GET',
     url: 'https://calorieninjas.p.rapidapi.com/v1/nutrition',
@@ -22,8 +14,13 @@ async function calories({ ingredient, quantity, quantityType }) {
   };
 
   const returnValue = await axios.request(options);
-  return returnValue.data.items[0].calories * quantity;
-
+  if (!returnValue.data.items[0]) {
+    console.log('asdf', data, ingredient);
+  }
+  if (returnValue.data.items && returnValue.data.items.length) {
+    return returnValue.data.items[0].calories * data.quantity;
+  }
+  return 0;
 }
 
 module.exports = calories;

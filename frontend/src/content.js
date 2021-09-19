@@ -8,8 +8,6 @@ const scanAllergicFood = () => {
   });
 };
 
-const 
-
 chrome.storage.onChanged.addListener((changes) => {
   allergicFoodList = changes.allergicFoodList.newValue;
 });
@@ -17,7 +15,9 @@ chrome.storage.onChanged.addListener((changes) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request) {
     if (request.msg == 'scan button clicked') {
-      sendResponse(scanAllergicFood());
+      const temp = scanAllergicFood();
+      console.log('temp', temp);
+      sendResponse(temp);
     }
   }
 });
