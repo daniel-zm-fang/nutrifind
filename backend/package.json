@@ -22,7 +22,8 @@
     "axios": "^0.21.4",
     "convert-units": "^2.3.4",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "puppeteer": "^10.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
