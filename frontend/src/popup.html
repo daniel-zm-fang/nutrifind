@@ -21,10 +21,7 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-
     <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,800'>
-
-
     <title>NutriFind</title>
 </head>
 
@@ -43,28 +40,17 @@
             </ul>
         </nav>
     </div>
-    <!--
-    <div id="menuBar">
-        <button id="dashboardButton" class="myButton">Dashboard</button>
-        <button id="allergyButton" class="myButton">Allergy Filter</button>
-        <button id="caloriesButton" class="myButton">Calories Checker</button>
-    </div>
--->
+
     <div class="float-right">
         <label class="switch">
             <input type="checkbox">
             <span class="slider round" id="onOffButton"></span>
         </label>
     </div>
-    <p id="onofftext">On/Off</p>
-
+    <p id="onofftext">Turn on button</p>
     <div id="dashboard" class="tab">
         <button id="scanButton" class="btn">Scan</button>
-        <p id="checkmark"><img src="checkmark.png" alt="A checkmark." width='80px'> No allergies found on this page!</p>
-        <p id="bigx"><img src="bigx.png" alt="A red X sign." width='60px'> WARNING: Allergies found!</p>
     </div>
-
-    
 
     <div id="allergy" class="tab" style="display: none">
         <ul id="allergicFoodul" class="list-group"></ul>
@@ -74,7 +60,6 @@
         <button id="addButton" class="btn">Add to my list</button>
         <button id="clearButton" class="btn">Clear</button>
     </div>
-
 
     <div id="calories" class="tab" style="display: none">
         <table class="table" id="foodSummaryTable">
