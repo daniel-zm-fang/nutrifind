@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tableRow.appendChild(foodCalories);
       tableRow.appendChild(foodPrice);
       foodSummaryTable.appendChild(tableRow);
-      totalCalories += food.calories.toFixed(3);
-      totalPrice += food.price[0].price;
+      totalCalories += parseInt(food.calories);
+      totalPrice += parseFloat(food.price[0].price.slice(1));
     });
     const summaryRow = document.createElement('tr');
     const summaryFoodId = document.createElement('td');
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryRow.appendChild(summaryFoodCalories);
     summaryRow.appendChild(summaryFoodPrice);
     foodSummaryTable.appendChild(summaryRow);
-  }
+  };
 
   const foodList = document.getElementById('allergicFoodul');
   const addFoodInputBar = document.getElementById('foodText');
@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (items.on) {
       on = items.on;
       onOffButton.click();
-    } else if (items.allergicFoodList) {
+    }
+    if (items.allergicFoodList) {
       allergicFoodList = items.allergicFoodList;
     }
     if (items.state) {
@@ -101,15 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
         foodSummaryTable.innerHTML = '';
         const tableHead = document.createElement('thead');
         const tableRow = document.createElement('tr');
-        let tableCols = []
+        let tableCols = [];
         for (let i = 0; i < 4; i++) {
-          tableCols[i] = document.createElement('th')
-          tableCols[i].scope = 'col'
+          tableCols[i] = document.createElement('th');
+          tableCols[i].scope = 'col';
         }
-        tableCols[0].innerText = '#'
-        tableCols[1].innerText = 'Food'
-        tableCols[2].innerText = 'Calories'
-        tableCols[3].innerText = 'Price'
+        tableCols[0].innerText = '#';
+        tableCols[1].innerText = 'Food';
+        tableCols[2].innerText = 'Calories';
+        tableCols[3].innerText = 'Price';
         for (let i = 0; i < 4; i++) {
           tableRow.appendChild(tableCols[i]);
         }
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   scanButton.addEventListener('click', (e) => {
-    console.log('clearing foodSummaryList')
+    console.log('clearing foodSummaryList');
     checkmark.style.visibility = 'hidden';
     bigX.style.visibility = 'hidden';
     chrome.storage.sync.get(null, (items) => {
@@ -156,7 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         (resTo) => {
           // check if flatted resTo contains any allergies
-          const flat = resTo.flat().map((text) => text.split(' ')).flat();
+          const flat = resTo
+            .flat()
+            .map((text) => text.split(' '))
+            .flat();
           console.log(flat);
           console.log(allergicFoodList);
           if (flat.some((word) => allergicFoodList.includes(word))) {
@@ -166,19 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             console.log('allergies not on the page');
             checkmark.style.visibility = 'visible';
-            bigX.style.visibility = 'hidden'
+            bigX.style.visibility = 'hidden';
           }
           console.log('resto', resTo);
-          axios.post('http://localhost:3000/api/nlp', resTo
-          ).then((resFrom) => {
+          axios.post('http://localhost:3000/api/nlp', resTo).then((resFrom) => {
             chrome.storage.sync.get(null, (items) => {
-              console.log('setting foodSummaryList:')
+              console.log('setting foodSummaryList:');
               console.log(resFrom.data);
               items.foodSummaryList = resFrom.data;
               chrome.storage.sync.set(items);
             });
             console.log('resfrom', resFrom);
-          })
+          });
         }
       );
     });
