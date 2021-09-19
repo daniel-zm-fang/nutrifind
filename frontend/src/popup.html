@@ -39,24 +39,22 @@
             </ul> 
         </nav>
         </div>
-    <!--
-    <div id="menuBar">
-        <button id="dashboardButton" class="myButton">Dashboard</button>
-        <button id="allergyButton" class="myButton">Allergy Filter</button>
-        <button id="caloriesButton" class="myButton">Calories Checker</button>
-    </div>
--->
+
     <div class="float-right">
         <label class="switch">
             <input type="checkbox">
             <span class="slider round" id="onOffButton"></span>
         </label>
     </div>
-    <p id="onofftext">Turn on button</p>
+    <p id="onofftext">On/Off</p>
 
     <div id="dashboard" class="tab">
-        <p>This is the dashboard</p>
+        <p id="checkmark"><img src="checkmark.png" alt="A checkmark." width='80px'> No allergies found on this page!</p>
+        <p id="bigx"><img src="bigx.png" alt="A red X sign." width='60px'> WARNING: Allergies found!</p>
     </div>
+
+    
+
     <div id="allergy" class="tab" style="display: none">
         <ul id="allergicFoodul" class="list-group"></ul>
         <label>Enter your food allergy:</label>
@@ -65,6 +63,8 @@
         <button id="scanButton" class="btn">Scan</button>
         <button id="clearButton" class="btn">Clear</button>
     </div>
+
+
     <div id="calories" class="tab" style="display: none">
         <table class="table" id="foodSummaryTable">
             <thead>
