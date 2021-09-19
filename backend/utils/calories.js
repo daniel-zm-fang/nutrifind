@@ -1,9 +1,9 @@
 var axios = require('axios').default;
 var convert  = require('convert-units')
 
-var ingredient = 'chicken';
-var quantity = 200;
-var quantity_type = 'grams';
+var ingredient = 'butter';
+var quantity = 3;
+var quantity_type = 'tsp';
 quantity_type = quantity_type.toLowerCase();
 
 async function calories() {
@@ -69,8 +69,9 @@ async function calories() {
       default:
         throw new Exception('Invalid units');
     } 
+    //returns 0 calories if not a valid unit
   } catch (Exception) {
-    //send back to front end
+    quantity = 0;
   }
 
   var unit_possibilities = convert(1).from(quantity_type).possibilities();
@@ -98,5 +99,9 @@ async function calories() {
   return returnValue.data.items[0].calories * quantity;
 
 }
+
+calories().then((res) => {
+  console.log(res);
+})
 
 module.exports = calories;
