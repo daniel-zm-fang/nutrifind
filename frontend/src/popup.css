@@ -5,21 +5,29 @@ body {
     background: radial-gradient(circle, rgb(131, 234, 248) 0%, rgba(185,217,255,1) 100%);
 }
 
+ 
+
 .title{
-    margin: 5px;
-    text-align: center;
+    margin-left: 50px;
+    text-align: left;
 }
 
 #logo{
-    width: 33px;
-    height: 44px;
+    /*
+    width: 40px;
+    height: 53px;
+    position: relative;
+    */
+    width: 48px;
+    height: 57px;
     position: absolute;
     top: 22px;
-    left: 102px;
+    left: 30px;
+
 }
 
 #titleText {
-    margin: 20px;
+    margin: 25px;
     font-size: 50px;
     font-family: 'Gluten', cursive;
 }
@@ -41,6 +49,7 @@ body {
 #menuBar {
     display: flex;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 .myButton {
@@ -69,6 +78,17 @@ body {
 	position:relative;
 	top:1px;
 }
+
+#onofftext{
+    font-family: 'Gluten';
+    font-size: 20px;
+
+}
+
+#dashboard{
+    margin-bottom: 30px;
+}
+
 
 #foodList {
     margin: 10px 0px;

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let allergicFoodList = [];
   let state = 'Dashboard';
+  let on = true;
 
   const foodList = document.getElementById('foodList');
   const addFoodInputBar = document.getElementById('foodText');
@@ -15,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const allergy = document.getElementById('allergy');
   const calories = document.getElementById('calories');
   const settings = document.getElementById('settings');
+  const onOffButton = document.getElementById('onOffButton');
 
   chrome.storage.sync.get(null, (items) => {
-    if (items.allergicFoodList) {
+    if (items.on) {
+      on = items.on;
+      onOffButton.click();
+    } else if (items.allergicFoodList) {
       allergicFoodList = items.allergicFoodList;
     }
     if (items.state) {
@@ -88,29 +93,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  onOffButton.addEventListener('click', () => {
+    if (on) {
+      on = false;
+    } else {
+      on = true;
+    }
+    chrome.storage.sync.get(null, (items) => {
+      items.on = !on;
+      chrome.storage.sync.set(items);
+    });
+  });
+
   [dashboardButton, allergyButton, caloriesButton, settingsButton].forEach((button) => {
     button.addEventListener('click', (e) => {
-      if (e.target.innerText != null) {
-        state = e.target.innerText;
-      } else {
-        state = 'Settings';
-      }
-      chrome.storage.sync.get(null, (items) => {
-        items.state = state;
-        chrome.storage.sync.set(items);
-      });
-      dashboard.style.display = 'none';
-      allergy.style.display = 'none';
-      calories.style.display = 'none';
-      settings.style.display = 'none';
-      if (state == 'Dashboard') {
-        dashboard.style.display = 'block';
-      } else if (state == 'Allergy Filter') {
-        allergy.style.display = 'block';
-      } else if (state == 'Calories Checker') {
-        calories.style.display = 'block';
-      } else {
-        settings.style.display = 'block';
+      console.log(on);
+      if (!on) {
+        if (e.target.innerText != null) {
+          state = e.target.innerText;
+        } else {
+          state = 'Settings';
+        }
+        chrome.storage.sync.get(null, (items) => {
+          items.state = state;
+          chrome.storage.sync.set(items);
+        });
+        dashboard.style.display = 'none';
+        allergy.style.display = 'none';
+        calories.style.display = 'none';
+        settings.style.display = 'none';
+        if (state == 'Dashboard') {
+          dashboard.style.display = 'block';
+        } else if (state == 'Allergy Filter') {
+          allergy.style.display = 'block';
+        } else if (state == 'Calories Checker') {
+          calories.style.display = 'block';
+        } else {
+          settings.style.display = 'block';
+        }
       }
     });
   });

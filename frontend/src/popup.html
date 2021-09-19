@@ -5,6 +5,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">    
     <link href="https://fonts.googleapis.com/css2?family=Gluten&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="popup.js"></script>
@@ -16,12 +19,12 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <title>Nutrifind</title>
+    <title>NutriFind</title>
 </head>
 <body>
     <div class="title">
         <img id="logo" src="nutrifind logo.png" id="logo" alt="NutriFind Logo">
-        <h1 id="titleText">utri<span style="color:darkcyan">Find</span></h1>
+        <h1 id="titleText">Nutri<span style="color:darkcyan">Find</span></h1>
     </div>
     <img src="setting.png" id="settingsButton" alt="settings">
     <div id="menuBar">
@@ -33,13 +36,13 @@
         <div class="float-right">
             <label class="switch">
                 <input type="checkbox">
-                <span class="slider round"></span>
+                <span class="slider round" id="onOffButton"></span>
             </label>
         </div>
-        <p>Turn on button</p>
+        <p id="onofftext">Turn on button</p>
     </div>
     <div>
-        <p>This is the dashboard, implement how many allergies the extension has caught, user's favorite icons</p>
+        <p id="dashboardtext">This is the dashboard, implement how many allergies the extension has caught, user's favorite icons</p>
     </div>
     <div id="allergy" class="tab" style="display: none">
         <ul id="foodList" class="list-group"></ul>

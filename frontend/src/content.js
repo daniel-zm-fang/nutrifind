@@ -4,7 +4,7 @@ const scanAllergicFood = () => {
   return Array.prototype.slice.call(document.getElementsByTagName('ul')).map((ul) => {
     return Array.prototype.slice.call(ul.children).map((li) => {
       return li.innerText.trim();
-    })
+    });
   });
 };
 
