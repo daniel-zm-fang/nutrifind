@@ -161,6 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .flat()
             .map((text) => text.split(' '))
             .flat();
+          console.log(flat);
+          console.log(allergicFoodList);
           if (flat.some((word) => allergicFoodList.includes(word))) {
             checkmark.style.visibility = 'hidden';
             bigX.style.visibility = 'visible';
@@ -171,9 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log('resto', resTo);
           axios.post('http://localhost:3000/api/nlp', resTo).then((resFrom) => {
             chrome.storage.sync.get(null, (items) => {
+              console.log('setting foodSummaryList:');
+              console.log(resFrom.data);
               items.foodSummaryList = resFrom.data;
               chrome.storage.sync.set(items);
             });
+            console.log('resfrom', resFrom);
           });
         }
       );
