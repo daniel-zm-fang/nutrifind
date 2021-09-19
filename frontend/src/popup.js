@@ -134,16 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  //!!!!!!!!!!! nav to button
   [dashboardButton, allergyButton, caloriesButton, settingsButton].forEach((a) => {
     a.addEventListener('click', (e) => {
-      console.log(on);
       if (!on) {
         if (e.target.innerText != null) {
           state = e.target.innerText;
         } else {
           state = 'Settings';
         }
+        console.log(state);
         chrome.storage.sync.get(null, (items) => {
           items.state = state;
           chrome.storage.sync.set(items);
@@ -154,9 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         settings.style.display = 'none';
         if (state == 'Dashboard') {
           dashboard.style.display = 'block';
-        } else if (state == 'Allergy Filter') {
+        } else if (state == 'Allergy') {
           allergy.style.display = 'block';
-        } else if (state == 'Calories Checker') {
+        } else if (state == 'Calories') {
           calories.style.display = 'block';
         } else {
           settings.style.display = 'block';
