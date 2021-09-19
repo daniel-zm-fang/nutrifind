@@ -8,6 +8,8 @@ const scanAllergicFood = () => {
   });
 };
 
+const 
+
 chrome.storage.onChanged.addListener((changes) => {
   allergicFoodList = changes.allergicFoodList.newValue;
 });

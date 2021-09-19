@@ -68,7 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
           msg: 'scan button clicked',
         },
         (res) => {
-          console.log(res);
+          axios.post('http://localhost:3000/api/nlp', res
+          ).then((res) => {
+            console.log(res);
+          })
         }
       );
     });
