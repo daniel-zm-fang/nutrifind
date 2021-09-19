@@ -8,6 +8,23 @@ const scanAllergicFood = () => {
   });
 };
 
+const annoteAllergicFood = (element) => {
+  if (!element.hasChildNodes()) {
+    return;
+  } else {
+    for (let i = 0; i < allergicFoodList.length; i++) {
+      if (element.innerText.includes(allergicFoodList)) {
+        updateMask(element);
+        break;
+      }
+    }
+    let c = element.children;
+    for (let i = 0; i < c.length; i++) {
+      annoteAllergicFood(c[i]);
+    }
+  }
+};
+
 chrome.storage.onChanged.addListener((changes) => {
   allergicFoodList = changes.allergicFoodList.newValue;
 });
@@ -15,7 +32,10 @@ chrome.storage.onChanged.addListener((changes) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request) {
     if (request.msg == 'scan button clicked') {
-      sendResponse(scanAllergicFood());
+      const temp = scanAllergicFood();
+      console.log('temp', temp);
+      sendResponse(temp);
+      annoteAllergicFood(document.documentElement);
     }
   }
 });

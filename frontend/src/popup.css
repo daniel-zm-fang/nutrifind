@@ -34,8 +34,8 @@ body {
 
 #settingsButton {
     position: absolute;
-    right: 20px;
-    top: 15px;
+    right: 15px;
+    top: 10px;
     width: 20px;
     height: 20px;
     transition: transform .7s ease-in-out;
@@ -46,40 +46,6 @@ body {
     transform: rotate(360deg);
 }
 
-/*
-#menuBar {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 20px;
-}
-
-.myButton {
-	box-shadow:inset 0px 1px 0px 0px #bee2f9;
-	background:linear-gradient(to bottom, #9edbff 5%, #127ee3 100%);
-	background-color:#8ad4ff;
-	border-radius:6px;
-	border:1px solid #3866a3;
-	display:inline-block;
-    margin: 5px;
-	cursor:pointer;
-	color:#113057;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 10px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #7cacde;
-    white-space: nowrap;
-}
-.myButton:hover {
-	background:linear-gradient(to bottom, #127ee3 5%, #8ad4ff 100%);
-	background-color:#127ee3;
-}
-.myButton:active {
-	position:relative;
-	top:1px;
-}
-*/
 
 .btn {
     background: #ffffff;
@@ -117,6 +83,7 @@ body {
 
 #dashboard{
     margin-bottom: 30px;
+    font-family: 'Gluten';
 }
 
 .list-group-item{
@@ -129,6 +96,10 @@ body {
     background-color:rgb(89, 203, 218);
 }
 
+#foodSummaryTable {
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 #foodList {
     margin: 10px 0px;
@@ -141,7 +112,12 @@ body {
 }
 
 .tab {
-    margin-top: 10px;
+    margin-top: 30px;
+    font-family: 'Gluten';
+}
+
+#allergy button{
+    font-family: 'Gluten';
 }
 
 .menuButton {
@@ -224,15 +200,15 @@ body {
   }
 
   .menu {
-    font-family: Alegreya Sans;
+    font-family: 'Gluten', cursive;
     background: #feeded;
     position: relative;
-    background: #cd3e3d;
+    background: #3fe6c2;
     width: 4em;
     height: 4em;
     border-radius: 5em;
     cursor: pointer;
-    border: 1em solid #fdaead;
+    border: 1em solid #29b8ac;
   }
 
   .menu ul {
@@ -240,7 +216,7 @@ body {
     padding: 0;
   }
   .menu li {
-    width: 5em;
+    width: 7em;
     height: 1.5em;
     padding: 0.1em;
     margin-top: 0.1em;
@@ -248,18 +224,14 @@ body {
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
     transition: all 1s;
-    background: #fdaead;
+    background: #3fe6c2;
     opacity: 0;
     z-index: -1;
   }
   .menu:hover li {
     opacity: 1;
   }
-  /**
-   * Add a pseudo element to cover the space
-   * between the links. This is so the menu
-   * does not lose :hover focus and disappear
-   */
+
   .menu:hover ul::before {
     position: absolute;
     content: "";
@@ -268,41 +240,21 @@ body {
     display: block;
     left: 20%;
     top: -5.0em;
-    /**
-     * The pseudo-element is a semi-circle
-     * created with CSS. Top, bottom, and right
-     * borders are 6.5em (left being 0), and then
-     * a border-radius is added to the two corners
-     * on the right.
-     */
+
     border-width: 6.5em;
     border-radius: 0 7.5em 7.5em 0;
     border-left: 0;
     border-style: solid;
-    /**
-     * Have to have a border color for the border
-     * to be hoverable. I'm using a very light one
-     * so that it looks invisible.
-     */
+
     border-color: rgba(0,0,0,0.01);
-    /**
-     * Put the psuedo-element behind the links
-     * (So they can be clicked on)
-     */
+
     z-index: -1;
-    /**
-     * Make the cursor default so it looks like
-     * nothing is there
-     */
+
     cursor: default;
   }
   .menu a {
     color: white;
     text-decoration: none;
-    /**
-     * This is to vertically center the text on the
-     * little tab-like things that the text is on.
-     */
     line-height: 1.5em;
   }
   .menu a {
@@ -317,26 +269,26 @@ body {
     transform: rotate(0deg) translateY(-1em);
   }
   .menu li:hover {
-    background: #cd3e3d;
+    background: #29b8ac;
     z-index: 10;
   }
   
   .menu li:nth-of-type(1) {
     transform: rotate(-90deg);
     position: absolute;
-    left: -1.2em;
-    top: -4.2em;
+    left: -2.5em;
+    top: -5em;
   }
   .menu li:nth-of-type(2) {
     transform: rotate(-45deg);
     position: absolute;
     left: 2em;
-    top: -3em;
+    top: -3.3em;
   }
   .menu li:nth-of-type(3) {
     position: absolute;
-    left: 3.4em;
-    top: 0.3em;
+    left: 3.6em;
+    top: 1em;
   }
   .menu li:nth-of-type(4) {
     transform: rotate(45deg);
