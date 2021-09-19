@@ -129,6 +129,10 @@ body {
     background-color:rgb(89, 203, 218);
 }
 
+#foodSummaryTable {
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 #foodList {
     margin: 10px 0px;

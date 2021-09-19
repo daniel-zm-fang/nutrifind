@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gluten&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="popup.js"></script>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -20,11 +22,12 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
-    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,800' >
+    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,800'>
 
 
     <title>NutriFind</title>
 </head>
+
 <body>
     <div class="title">
         <img id="logo" src="nutrifind logo.png" id="logo" alt="NutriFind Logo">
@@ -37,9 +40,9 @@
                 <li><a id="dashboardButton" class="myButton">Dashboard</a></li>
                 <li><a id="allergyButton" class="myButton">Allergy</a></li>
                 <li><a id="caloriesButton" class="myButton">Calories</a></li>
-            </ul> 
+            </ul>
         </nav>
-        </div>
+    </div>
     <!--
     <div id="menuBar">
         <button id="dashboardButton" class="myButton">Dashboard</button>
@@ -57,13 +60,18 @@
 
     <div id="dashboard" class="tab">
         <p>This is the dashboard</p>
+        <button id="scanButton" class="btn">Scan</button>
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+
     </div>
     <div id="allergy" class="tab" style="display: none">
         <ul id="allergicFoodul" class="list-group"></ul>
         <label>Enter your food allergy:</label>
-        <input type="text" class="form-control" id="foodText" placeholder="Example: peanuts, milk, soy, ..." autofocus />
+        <input type="text" class="form-control" id="foodText" placeholder="Example: peanuts, milk, soy, ..."
+            autofocus />
         <button id="addButton" class="btn">Add to my list</button>
-        <button id="scanButton" class="btn">Scan</button>
         <button id="clearButton" class="btn">Clear</button>
     </div>
     <div id="calories" class="tab" style="display: none">
@@ -83,4 +91,5 @@
     </div>
 
 </body>
+
 </html>

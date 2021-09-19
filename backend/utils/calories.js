@@ -14,9 +14,6 @@ async function calories({ ingredient, quantity, quantityType }) {
   };
 
   const returnValue = await axios.request(options);
-  if (!returnValue.data.items[0]) {
-    console.log('asdf', data, ingredient);
-  }
   if (returnValue.data.items && returnValue.data.items.length) {
     return returnValue.data.items[0].calories * data.quantity;
   }

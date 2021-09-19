@@ -8,6 +8,10 @@ const scanAllergicFood = () => {
   });
 };
 
+const annoteAllergicFood = () => {
+  
+}
+
 chrome.storage.onChanged.addListener((changes) => {
   allergicFoodList = changes.allergicFoodList.newValue;
 });
@@ -18,6 +22,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const temp = scanAllergicFood();
       console.log('temp', temp);
       sendResponse(temp);
+      annoteAllergicFood(document.documentElement)
     }
   }
 });

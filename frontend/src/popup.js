@@ -4,6 +4,43 @@ document.addEventListener('DOMContentLoaded', () => {
   let state = 'Dashboard';
   let on = true;
 
+  const createRows = () => {
+    let totalCalories = 0;
+    let totalPrice = 0;
+    foodSummaryList.forEach((food, index) => {
+      const tableRow = document.createElement('tr');
+      const foodId = document.createElement('td');
+      const foodName = document.createElement('td');
+      const foodCalories = document.createElement('td');
+      const foodPrice = document.createElement('td');
+      foodId.innerText = index + 1;
+      foodName.innerText = food.ingredient;
+      foodCalories.innerText = food.calories.toFixed(3);
+      foodPrice.innerText = food.price[0].price;
+      tableRow.appendChild(foodId);
+      tableRow.appendChild(foodName);
+      tableRow.appendChild(foodCalories);
+      tableRow.appendChild(foodPrice);
+      foodSummaryTable.appendChild(tableRow);
+      totalCalories += food.calories.toFixed(3);
+      totalPrice += food.price[0].price;
+    });
+    const summaryRow = document.createElement('tr');
+    const summaryFoodId = document.createElement('td');
+    const summaryFoodName = document.createElement('td');
+    const summaryFoodCalories = document.createElement('td');
+    const summaryFoodPrice = document.createElement('td');
+    foodId.innerText = 'summary';
+    foodName.innerText = '';
+    foodCalories.innerText = totalCalories;
+    foodPrice.innerText = totalPrice;
+    summaryRow.appendChild(summaryFoodId);
+    summaryRow.appendChild(summaryFoodName);
+    summaryRow.appendChild(summaryFoodCalories);
+    summaryRow.appendChild(summaryFoodPrice);
+    foodSummaryTable.appendChild(summaryRow);
+  }
+
   const foodList = document.getElementById('allergicFoodul');
   const addFoodInputBar = document.getElementById('foodText');
   const addButton = document.getElementById('addButton');
@@ -48,19 +85,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       foodList.appendChild(newFood);
     });
-    foodSummaryList.forEach((food) => {
-      const tableRow = document.createElement('tr');
-      const foodName = document.createElement('td');
-      const foodCalories = document.createElement('td');
-      const foodPrice = document.createElement('td');
-      foodName.innerText = food.name;
-      foodCalories.innerText = food.calories;
-      foodPrice.innerText = food.price;
-      tableRow.appendChild(foodName);
-      tableRow.appendChild(foodCalories);
-      tableRow.appendChild(foodPrice);
-      foodSummaryTable.appendChild(tableRow);
-    });
+    createRows();
+  });
+
+  chrome.storage.onChanged.addListener(function (changes, namespace) {
+    if (changes.foodSummaryList && changes.foodSummaryList.newValue) {
+      foodSummaryList = changes.foodSummaryList.newValue;
+      if (foodSummaryList.length > 0) {
+        createRows();
+      } else {
+        foodSummaryTable.innerHTML = '';
+        const tableHead = document.createElement('thead');
+        const tableRow = document.createElement('tr');
+        let tableCols = []
+        for (let i = 0; i < 4; i++) {
+          tableCols[i] = document.createElement('th')
+          tableCols[i].scope = 'col'
+        }
+        tableCols[0].innerText = '#'
+        tableCols[1].innerText = 'Food'
+        tableCols[2].innerText = 'Calories'
+        tableCols[3].innerText = 'Price'
+        for (let i = 0; i < 4; i++) {
+          tableRow.appendChild(tableCols[i]);
+        }
+        tableHead.appendChild(tableRow);
+        foodSummaryTable.appendChild(tableHead);
+      }
+    }
   });
 
   addButton.addEventListener('click', (e) => {
@@ -85,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   scanButton.addEventListener('click', (e) => {
+    console.log('clearing foodSummaryList')
+    chrome.storage.sync.get(null, (items) => {
+      items.foodSummaryList = [];
+      chrome.storage.sync.set(items);
+    });
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.sendMessage(
         tabs[0].id,
@@ -95,6 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log('resto', resTo);
           axios.post('http://localhost:3000/api/nlp', resTo
           ).then((resFrom) => {
+            chrome.storage.sync.get(null, (items) => {
+              console.log('setting foodSummaryList:')
+              console.log(resFrom.data);
+              items.foodSummaryList = resFrom.data;
+              chrome.storage.sync.set(items);
+            });
             console.log('resfrom', resFrom);
           })
         }
