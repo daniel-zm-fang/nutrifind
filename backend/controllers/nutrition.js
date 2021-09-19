@@ -10,7 +10,7 @@ or guiding the caller somewhere.
 // Example GET route (using localhost:3000/api/nutrition)
 // Async Programming is important here!
 nutritionRouter.get('/', async (request, response) => {
-    response.json({ message: await calories() });
+  response.json({ message: await calories() });
 });
 
 // TODO: Implement route to return JSON with

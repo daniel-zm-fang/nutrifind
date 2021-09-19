@@ -6,11 +6,11 @@ async function calories({ ingredient, quantity, quantityType }) {
   var options = {
     method: 'GET',
     url: 'https://calorieninjas.p.rapidapi.com/v1/nutrition',
-    params: {query: ingredient},
+    params: { query: ingredient },
     headers: {
       'x-rapidapi-host': 'calorieninjas.p.rapidapi.com',
-      'x-rapidapi-key': 'b70c9617f3mshce65036542e8cfap1a8cc9jsndbb1c4f8c779'
-    }
+      'x-rapidapi-key': 'b70c9617f3mshce65036542e8cfap1a8cc9jsndbb1c4f8c779',
+    },
   };
 
   const returnValue = await axios.request(options);
@@ -20,8 +20,8 @@ async function calories({ ingredient, quantity, quantityType }) {
   return 0;
 }
 
-calories().then((res) => {
-  console.log(res);
-})
+// calories().then((res) => {
+//   console.log(res);
+// });
 
 module.exports = calories;
