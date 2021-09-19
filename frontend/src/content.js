@@ -10,11 +10,12 @@ const scanAllergicFood = () => {
 
 const annoteAllergicFood = (element) => {
   if (!element.hasChildNodes()) {
-    return
+    return;
   } else {
     for (let i = 0; i < allergicFoodList.length; i++) {
-      if (element.innerText.includes(allergicFoodList)) {
-        updateMask(elemnt);
+      if (element.innerText.length && element.innerText.includes(allergicFoodList)) {
+        console.log('apply mask');
+        element.style.color = 'red';
         break;
       }
     }
@@ -23,19 +24,20 @@ const annoteAllergicFood = (element) => {
       annoteAllergicFood(c[i]);
     }
   }
-}
+};
 
 chrome.storage.onChanged.addListener((changes) => {
-  allergicFoodList = changes.allergicFoodList.newValue;
+  if (changes.allergicFoodList) {
+    allergicFoodList = changes.allergicFoodList.newValue;
+  }
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request) {
     if (request.msg == 'scan button clicked') {
       const temp = scanAllergicFood();
-      console.log('temp', temp);
       sendResponse(temp);
-      annoteAllergicFood(document.documentElement)
+      annoteAllergicFood(document.documentElement);
     }
   }
 });
