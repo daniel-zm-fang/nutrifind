@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   let allergicFoodList = [];
+  let foodSummaryList = [];
   let state = 'Dashboard';
   let on = true;
 
-  const foodList = document.getElementById('foodList');
+  const foodList = document.getElementById('allergicFoodul');
   const addFoodInputBar = document.getElementById('foodText');
   const addButton = document.getElementById('addButton');
   const scanButton = document.getElementById('scanButton');
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const calories = document.getElementById('calories');
   const settings = document.getElementById('settings');
   const onOffButton = document.getElementById('onOffButton');
+  const foodSummaryTable = document.getElementById('foodSummaryTable');
 
   chrome.storage.sync.get(null, (items) => {
     if (items.on) {
@@ -30,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       items.state = 'Dashboard';
     }
+    if (items.foodSummaryList) {
+      foodSummaryList = items.foodSummaryList;
+    }
     allergicFoodList.forEach((food) => {
       const newFood = document.createElement('li');
       newFood.innerText = food;
@@ -41,6 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
         newFood.classList.remove('active');
       });
       foodList.appendChild(newFood);
+    });
+    foodSummaryList.forEach((food) => {
+      const tableRow = document.createElement('tr');
+      const foodName = document.createElement('td');
+      const foodCalories = document.createElement('td');
+      const foodPrice = document.createElement('td');
+      foodName.innerText = food.name;
+      foodCalories.innerText = food.calories;
+      foodPrice.innerText = food.price;
+      tableRow.appendChild(foodName);
+      tableRow.appendChild(foodCalories);
+      tableRow.appendChild(foodPrice);
+      foodSummaryTable.appendChild(tableRow);
     });
   });
 
@@ -93,8 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
   onOffButton.addEventListener('click', () => {
     if (on) {
       on = false;
+      dashboard.style.visibility = 'visible';
+      allergy.style.visibility = 'visible';
+      calories.style.visibility = 'visible';
+      settings.style.visibility = 'visible';
+      document.body.style.minHeight = '480px';
     } else {
       on = true;
+      dashboard.style.display = 'none';
+      dashboard.style.visibility = 'hidden';
+      allergy.style.display = 'none';
+      allergy.style.visibility = 'hidden';
+      calories.style.display = 'none';
+      calories.style.visibility = 'hidden';
+      settings.style.display = 'none';
+      settings.style.visibility = 'hidden';
+      document.body.style.minHeight = '200px';
     }
     chrome.storage.sync.get(null, (items) => {
       items.on = !on;
