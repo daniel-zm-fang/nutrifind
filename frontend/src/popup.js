@@ -102,8 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  [dashboardButton, allergyButton, caloriesButton, settingsButton].forEach((button) => {
-    button.addEventListener('click', (e) => {
+  //!!!!!!!!!!! nav to button
+  [dashboardButton, allergyButton, caloriesButton, settingsButton].forEach((a) => {
+    a.addEventListener('click', (e) => {
       console.log(on);
       if (!on) {
         if (e.target.innerText != null) {
