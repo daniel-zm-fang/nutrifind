@@ -23,4 +23,8 @@ async function calories({ ingredient, quantity, quantityType }) {
   return 0;
 }
 
+calories().then((res) => {
+  console.log(res);
+})
+
 module.exports = calories;
